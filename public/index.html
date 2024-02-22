@@ -5,22 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SocketServer</title>
 </head>
-<body>
+<body> 
     <h1> Acceso denegado</h1>
     <script src="socket.io/socket.io.js"></script>
     <script>
-        var cliente=io();
-        cliente.on('connect',function() {
+        var socket=io();
+        socket.on('connect',function() {
             console.log('Conectado al servidor');
         });
-        cliente.on('disconnect',function () {
+        socket.on('disconnect',function () {
             console.log('Perdimos la conexion con el servidor');
         });
-        cliente.emit('mensaje',{nombre:'Fernando'});
-
-        cliente.on('mensaje',function (payload) {
+        //socket.emit('mensaje',{nombre:'Fernando'});
+        
+         socket.on('client-message',function (payload) {
             console.log('Escuchando',payload);
-        })
+        }) 
+        ///Escuchar todas las bandas
+        socket.on('active-bands',function (payload) {
+            console.clear();
+           console.table(payload);
+       }) 
+        /* socket.on('añadir-banda',function (payload) {
+            console.clear();
+           console.table(payload);
+       }) */ 
+
     </script>
 </body>
 </html>
